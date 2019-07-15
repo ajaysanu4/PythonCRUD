@@ -24,5 +24,6 @@ urlpatterns = [
     path('edit/<int:id>',views.edit),
     path('update/<int:id>',views.update),
     path('delete/<int:id>',views.delete),
-    path('',)
+    path(r'^export/csv/$', views.export_users_csv, name='export_users_csv'),
 ]
+

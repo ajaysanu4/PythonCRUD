@@ -1,11 +1,17 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from crudapplication.forms import EmployeeForm
 from crudapplication.models import Employee
 
+import csv
+from django.http import HttpResponse
+from crudapplication.models import Employee
+
+
+
 # Create your views here.
 def emp(request):
-    if  request.method == "POST":
-        form=EmployeeForm(request.POST)
+    if request.method == "POST":
+        form = EmployeeForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
@@ -15,26 +21,45 @@ def emp(request):
 
     else:
         form = EmployeeForm()
-    return  render(request,"Index.html",{'form':form})
+    return render(request, "Index.html", {'form': form})
+
 
 def show(request):
-    employees=Employee.objects.all()
-    return render(request,"show.html",{'employees':employees})
+    employees = Employee.objects.all()
+    return render(request, "show.html", {'employees': employees})
 
-def edit(request,id):
-    employee=Employee.objects.get(id=id)
-    return render(request,"edit.html",{'employee':employee})
 
-def update(request,id):
-    employee=Employee.objects.get(id=id)
-    form=  EmployeeForm(request.POST,instance=employee)
+def edit(request, id):
+    employee = Employee.objects.get(id=id)
+    return render(request, "edit.html", {'employee': employee})
+
+
+def update(request, id):
+    employee = Employee.objects.get(id=id)
+    form = EmployeeForm(request.POST, instance=employee)
     if form.is_valid():
         form.save()
         return redirect("/show")
-    return render(request,"edit.html",{'employee':employee})
+    return render(request, "edit.html", {'employee': employee})
 
-def delete(request,id):
+
+def delete(request, id):
     employee = Employee.objects.get(id=id)
     employee.delete()
     return redirect("/show")
 
+
+
+
+def export_users_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Employee Id', 'Employee Name', 'Employee Email', 'Employee Contact'])
+
+    list = Employee.objects.all().values_list('eid', 'ename', 'eemail', 'econtact')
+    for element in list:
+        writer.writerow(element)
+
+    return response
