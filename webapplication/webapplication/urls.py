@@ -18,12 +18,13 @@ from django.urls import include, path
 from crudapplication import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('emp',views.emp),
-    path('show',views.show),
-    path('edit/<int:id>',views.edit),
-    path('update/<int:id>',views.update),
-    path('delete/<int:id>',views.delete),
+    path('', admin.site.urls, name='admin'),
+    path('admin/', admin.site.urls,name='admin'),
+    path('emp',views.emp,name='emp'),
+    path('show',views.show,name='show'),
+    path('edit/<int:id>',views.edit,name='edit'),
+    path('update/<int:id>',views.update,name='update'),
+    path('delete/<int:id>',views.delete,name='delete'),
     path(r'^export/csv/$', views.export_users_csv, name='export_users_csv'),
 ]
 

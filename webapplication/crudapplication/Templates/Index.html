@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    {% load bootstrap4 %}
+    {% load static %}
 </head>
 <body>
 <form method="POST" class="post-form" action="/emp">
@@ -51,6 +51,28 @@
         </div>
 
 </form>
+
+    <form action="/create">
+
+
+                {%  csrf_token %}
+            <label class="form-group" for="title">Title: </label>
+            <input class="form-control" type="text" name="title"><br>
+
+            <label class="form-group" for="price">Price: </label>
+            <input class="form-control" type="text" name="price"><br>
+
+            <label class="form-group" for="author">Author: </label>
+            <input class="form-control" type="text" name="author"><br>
+
+            <input class="btn btn-success" type="submit" value="Create">
+
+
+        </form>
+
+
+
+
 </body>
 
 </html>
