@@ -15,71 +15,46 @@
 
 
 <body>
-<form method="POST" class="post-form" action="/update/{{employee.id}}">
+<form method="POST" class="post-form" action="/update/{{employee.id}}" class="table table-dark"  align="center" >
     {%csrf_token%}
-    <div class="container">
-        <br>
-        <div class="form-group row">
-            <label class="col-sm-1 col-form-label"></label>
-            <div class="col-sm-1">
-                <h3>Update Details</h3>
-            </div>
-        </div>
-    </div>
+    <div class="container" ><br>
+        <h1 align="center">Update Details</h1>
+        <hr>
+
     <div class="form-group row">
-            <label class="col-sm-1 col-form-label">Employee Id</label>
+        <label class="col-sm-1 col-form-label"><b>Employee Id</b></label>
             <div class="col-sm-4">
              <input type="text" name="eid" id="id_eid" required maxlength="20" value="{{employee.eid}}"/>
             </div>
         </div>
     <div class="form-group row">
-            <label class="col-sm-1 col-form-label">Employee Name</label>
+        <label class="col-sm-1 col-form-label"><b>Employee Name</b></label>
             <div class="col-sm-4">
                 <input type="text" name="ename" id="id_ename" required maxlength="100" value="{{employee.ename}}"/>
             </div>
         </div>
     <div class="form-group row">
-            <label class="col-sm-1 col-form-label">Employee Email</label>
+        <label class="col-sm-1 col-form-label"><b>Employee Email</b></label>
             <div class="col-sm-4">
                 <input type="text" name="eemail" id="id_email" required maxlength="254" value="{{employee.eemail}}"/>
             </div>
         </div>
     <div class="form-group row">
-            <label class="col-sm-1 col-form-label">Employee Contact</label>
+        <label class="col-sm-1 col-form-label"><b>Employee Contact</b></label>
             <div class="col-sm-4">
                 <input type="text" name="econtact" id="id_econtact" required maxlength="20" value="{{employee.econtact}}"/>
             </div>
         </div>
+        <br>
     <div class="form-group row">
 
             <div class="col-sm-4">
              <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </div>
-
+    </div>
 </form>
+</table>
 </body>
-
-
-    <form action="/update/{{ books.id }}">
-
-        {% csrf_token %}
-
-        <label class="form-group" for="title">Title: </label>
-        <input class="form-control" type="text" name="title" value="{{ books.title }}" placeholder="{{ books.title }}">
-
-        <label class="form-group" for="price">Price: </label>
-        <input class="form-control" type="text" name="price" value="{{ books.price }}" placeholder="{{ books.price }}">
-
-        <label class="form-group" for="author">Author: </label>
-        <input class="form-control" type="text" name="author" value="{{ books.author }}" placeholder="{{ books.author }}">
-        <br>
-
-        <input class="btn btn-primary" type="submit" value="Update">
-
-    </form>
-
-
-
 
 </html>
