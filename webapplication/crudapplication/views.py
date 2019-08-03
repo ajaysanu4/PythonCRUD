@@ -71,15 +71,17 @@ def export_users_csv(request):
     writer.writerow(['Employee Id', 'Employee Name', 'Employee Email', 'Employee Contact'])
 
 
-    list1=['eid','ename']
-    string=(", ".join(repr(e) for e in list1).replace(""","").replace(""", ""))
-    print (string)
-    for data in list1:
-        list = Employee.objects.all().values_list(string).replace('\"', "")
-        print(list)
+    # list1=['eid','ename']
+    # string=(", ".join(repr(e) for e in list1).replace(""","").replace(""", ""))
+    # print (string)
+    # for data in list1:
+    #     list = Employee.objects.all().values_list(string).replace('\"', "")
+    #     print(list)
+    # for element in list:
+    #       writer.writerow(element)
+    list = Employee.objects.all().values_list("eid","ename","eemail","econtact")
     for element in list:
           writer.writerow(element)
-
 
     return response
 
