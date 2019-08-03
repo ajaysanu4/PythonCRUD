@@ -70,9 +70,16 @@ def export_users_csv(request):
     writer = csv.writer(response)
     writer.writerow(['Employee Id', 'Employee Name', 'Employee Email', 'Employee Contact'])
 
-    list = Employee.objects.all().values_list('eid', 'ename', 'eemail', 'econtact')
+
+    list1=['eid','ename']
+    string=(", ".join(repr(e) for e in list1).replace(""","").replace(""", ""))
+    print (string)
+    for data in list1:
+        list = Employee.objects.all().values_list(string).replace('\"', "")
+        print(list)
     for element in list:
-        writer.writerow(element)
+          writer.writerow(element)
+
 
     return response
 
@@ -109,12 +116,6 @@ def index(request):
                  lastprice = stock.iloc[1,3]
                  print(lastprice)
                  lastprice.value=list.ename
-            # c2 = sheet.cell(row=2, column=2)
-            # c2.value = list.ename
-            # c3 = sheet.cell(row=2, column=3)
-            # c3.value = list.eemail
-            # c4 = sheet.cell(row=2, column=4)
-            # c4.value = list.econtact
            # for i in range(len(lists)):
                  # sheet['A' + str(i)] =list.eid
                  # sheet['B' + str(i)] =list.ename
@@ -122,8 +123,6 @@ def index(request):
                  # sheet['D' + str(i)] = list.econtact
 
         wb.save(excel_file)
-
-
 
         return redirect("/show")
 
@@ -174,7 +173,7 @@ def user_login(request):
             if user.is_active:
                 login(request,user)
                 print("*****1")
-                return HttpResponseRedirect(reverse('index2'))
+                return HttpResponseRedirect(reverse('show'))
             else:
                 return HttpResponse("Your account was inactive.")
         else:
@@ -183,5 +182,5 @@ def user_login(request):
             print("They used username: {} and password: {}".format(username,password))
             return HttpResponse("Invalid login details given")
     else:
-        return render(request, 'dappx/login.html', {})
+        return render(request, 'login.html', {})
 
